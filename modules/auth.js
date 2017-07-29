@@ -216,7 +216,7 @@ var internal = {
         saltBytes: 16,
         digest: 'whirlpool',
         iterations: 777777,
-        hex: '',
+        hex: global.config.hex,
     },
     password: {
         hash: function(password) {

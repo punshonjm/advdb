@@ -5,8 +5,8 @@ var db = {};
 db.pool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
-    user: 'nodeSql',
-    password: '',
+    user: global.config.usr,
+    password: global.config.sql,
     database: 'advdb',
     dateString: true,
 });
