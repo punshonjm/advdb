@@ -1,0 +1,12 @@
+        </main>
+    </body>
+    <script type="text/javascript">
+        $(document).on('click', '.logout', function() {
+            $.get('/logout', function(response) {
+                window.setTimeout(function() {
+                    location.reload();
+                }, 150);
+            });
+        });
+    </script>
+</html>

@@ -1,0 +1,11 @@
+<div class='col'>
+    <h4>Hey!</h4>
+    <p>
+        You already have a users named {{FIRST_NAME}} {{LAST_NAME}} ({{GENDER}}) added on {{DATE_ADDED}} with a date of birth of {{DOB}}.
+        <br>Are you trying to add them again?
+    </p>
+    <span class='d-flex justify-content-around'>
+        <button type='button' class='btn btn-info btn-simple' data-user='{{USER_ID}}'>Show User Info</button>
+        <button type='button' class='btn btn-seconday btn-simple back' data-hide='#formFeedback' data-show='#form-body'>Back To Form</button>
+    </span>
+</div>

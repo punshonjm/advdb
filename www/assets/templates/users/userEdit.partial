@@ -1,0 +1,135 @@
+<div class='row'>
+    <div class='col'>
+        <button class='btn btn-primary btn-lg btn-round closeUser'>
+            <i class='fa fa-caret-left'></i> Back
+        </button>
+    </div>
+</div>
+<div class='row mt-3'>
+    <div class='col'>
+        <div class='card'>
+            <div class='card-header clearfix'>
+                <h3 class='card-title'>
+                    Edit Details
+                    <span class='float-right text-primary'>
+                        <i class='fa fa-save saveEdit' aria-hidden="true"></i>
+                        <i class="fa fa-times cancelEdit" aria-hidden="true" title="Cancel editing this person's details"></i>
+                        <i class="fa fa-spinner fa-pulse fa-fw processingSpinner hidden"></i>
+                    </span>
+                </h3>
+            </div>
+            <div class='card-block'>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='row'>
+                            <div class='col'>
+                                <div class='form-group form-group-no-border'>
+                                    <label for='edit_first_name' class='form-control-label'>First Name</label>
+                                    <input class='form-control' id='edit_first_name' type='text' placeholder='First Name' value='{{FIRST_NAME}}' required />
+                                </div>
+                            </div>
+                            <div class='col'>
+                                <div class='form-group form-group-no-border'>
+                                    <label for='edit_lastn_ame' class='form-control-label'>Last Name</label>
+                                    <input class='form-control' id='edit_last_name' type='text' placeholder='Last Name' value='{{LAST_NAME}}' required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col'>
+                        <div class='row'>
+                            <div class='col-3'>
+                                <label class='form-control-label'>Defence Member?</label>
+                                <div class='checkbox'>
+                                    <input id='edit_defence' type='checkbox' autocomplete="off" />
+                                    <label class='form-control-label' for='edit_defence' {{^compare DEFENCE 'No'}}checked{{/compare}}> Yes</label>
+                                </div>
+                            </div>
+                            <div class='col'>
+                                <div class='form-group'>
+                                    <label for='edit_defence_section' class='form-control-label'>If yes, what part?</label>
+                                    <input id='edit_defence_section' class='form-control' type='text' placeholder='Army / Navy / Airforce' {{^compare DEFENCE 'No'}}value='{{DEFENCE}}'{{/compare}} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='form-group form-group-no-border'>
+                            <label for='edit_dob' class='form-control-label'>Date of Birth</label>
+                            <input id='edit_dob' class='form-control date-picker'type='text' placeholder='Date of Birth' data-datepicker-color='primary' data-date-format='dd/mm/yyyy' required value='{{DOB}}'/>
+                        </div>
+                    </div>
+                    <div class='col'>
+                        <div class='form-group form-group-no-border'>
+                            <label for='edit_gender' class='form-control-label'>Gender</label>
+                            <select id='edit_gender' class='form-control' required>
+                                <option value='Female' {{#compare GENDER 'Female'}}checked{{/compare}}>Female</option>
+                                <option value='Male' {{#compare GENDER 'Male'}}checked{{/compare}}>Male</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='row'>
+                            <div class='col'>
+                                <div class='form-group form-group-no-border'>
+                                    <label for='edit_addr_l1' class='form-control-label'>Street Address</label>
+                                    <input class='form-control' id='edit_addr_l1' type='text' placeholder='Street Address' value='{{ADDR_L1}}' />
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-6'>
+                                <div class='form-group form-group-no-border'>
+                                    <label for='edit_addr_town' class='form-control-label'>Town/Suburb</label>
+                                    <input class='form-control' id='edit_addr_town' type='text' placeholder='Town/Suburb' value='{{ADDR_TOWN}}' />
+                                </div>
+                            </div>
+                            <div class='col-3'>
+                                <div class='form-group form-group-no-border'>
+                                    <label for='edit_addr_state' class='form-control-label'>State</label>
+                                    <input class='form-control' id='edit_addr_state' type='text' placeholder='State' value='{{ADDR_STATE}}' />
+                                </div>
+                            </div>
+                            <div class='col-3'>
+                                <div class='form-group form-group-no-border'>
+                                    <label for='edit_addr_post' class='form-control-label'>Postcode</label>
+                                    <input class='form-control' id='edit_addr_post' type='text' placeholder='Postcode' value='{{ADDR_POST}}' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col'>
+                        <div class='form-group form-group-no-border'>
+                            <label for='edit_email' class='form-control-label'>Email</label>
+                            <input class='form-control' id='edit_email' type='email' placeholder='Email' value='{{EMAIL}}' required />
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <div class='form-group form-group-no-border'>
+                            <label for='edit_ph_mobile' class='form-control-label'>Mobile Phone</label>
+                            <input class='form-control' id='edit_ph_mobile' type='text' placeholder='Mobile Phone' value='{{PH_MOBILE}}' required />
+                        </div>
+                    </div>
+                    <div class='col'>
+                        <div class='form-group form-group-no-border'>
+                            <label for='edit_ph_work' class='form-control-label'>Work Phone</label>
+                            <input class='form-control' id='edit_ph_work' type='text' placeholder='Work Phone' value='{{PH_WORK}}' required />
+                        </div>
+                    </div>
+                    <div class='col'>
+                        <div class='form-group form-group-no-border'>
+                            <label for='edit_ph_home' class='form-control-label'>Home Phone</label>
+                            <input class='form-control' id='edit_ph_home' type='text' placeholder='Last Name' value='{{PH_HOME}}' required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

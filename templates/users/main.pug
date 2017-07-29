@@ -1,0 +1,141 @@
+div.row
+    div.col
+        h2 Users
+    div.col.clearfix
+        button.btn.btn-primary.float-right(data-target='#addUser' data-toggle='modal') Add User
+        
+div.row 
+    div.col-md-3
+        div.card
+            div.card-header
+                h4.m-0 
+                    |  Search Users   
+                    i.fa.fa-search.float-right
+            div.card-block
+                div.row 
+                    div.col 
+                        div.form-group
+                            label First Name 
+                            input.form-control.search(name='first_name' type='text' autocomplete='off')
+                        div.form-group
+                            label Last Name 
+                            input.form-control.search(name='last_name' type='text' autocomplete='off')
+                        div.form-group
+                            label Email 
+                            input.form-control.search(name='email' type='text' autocomplete='off')
+                        div.form-group
+                            label Date of Birth 
+                            input.form-control.search.dob.date-picker(name='dob' type='text' autocomplete='off' data-datepicker-color='primary' data-date-format='dd/mm/yyyy')
+                        div.form-group
+                            label Gender
+                            select.form-control.search(name='gender' required autocomplete='off')
+                                option(value='') Don't Filter
+                                option(value='Female') Female
+                                option(value='Male') Male
+                        div.form-group
+                            label Mobile 
+                            input.form-control.search(name='ph_mobile' type='text' autocomplete='off')
+                        div.form-group
+                            label Home Phone
+                            input.form-control.search(name='ph_home' type='text' autocomplete='off')
+                        div.form-group
+                            label Work Phone
+                            input.form-control.search(name='ph_work' type='text' autocomplete='off')
+                div.row
+                    div.col#searchOutput
+            div.card-footer.clearfix
+                button.btn.btn-info.float-right.search_users Search
+            
+    div#usersTable.col-md-9
+        table.table
+            thead
+                tr
+                    th First Name
+                    th Last Name 
+                    th Gender 
+                    th Date of Birth 
+                    th 
+            tbody#searchResults
+    div#userDetails.col-md-9.hidden
+        
+div#addUser.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addUserLabel' aria-hidden='true')
+    div.modal-dialog.modal-lg
+        div.modal-content
+            div.modal-header
+                button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+                h4#addUserLabel.modal-title.mt-0 Add New User
+            div.modal-body
+                div#form-body
+                    div.row.pb-2
+                        div.col 
+                            div.form-group.form-group-no-border
+                                label(for='first_name').form-control-label First Name *
+                                input#first_name.form-control(type='text' placeholder='First Name' required)
+                        div.col
+                            div.form-group.form-group-no-border 
+                                label(for='last_name').form-control-label Last Name *
+                                input#last_name.form-control(type='text' placeholder='Last Name' required)
+                    div.row.pb-2
+                        div.col
+                            div.form-group.form-group-no-border
+                                label(for='email').form-control-label Email 
+                                input#email.form-control(type='email' placeholder='Email')
+                        div.col 
+                            div.form-group.form-group-no-border#dobContainer
+                                label(for='dob').form-control-label Date of Birth *
+                                input#dob.form-control.date-picker(type='text' placeholder='Date of Birth' data-datepicker-color='primary' data-date-format='dd/mm/yyyy' required)
+                        div.col 
+                            div.form-group.form-group-no-border
+                                label(for='gender').form-control-label Gender *
+                                select#gender.form-control(required)
+                                    option(value='') Choose...
+                                    option(value='Female') Female
+                                    option(value='Male') Male
+                    div.row.pb-2  
+                        div.col
+                            div.form-group.form-group-no-border
+                                label(for='ph_home').form-control-label Home Phone
+                                input#ph_home.form-control(type='text' placeholder='Home Phone')
+                        div.col
+                            div.form-group.form-group-no-border
+                                label(for='ph_mobile').form-control-label Mobile Phone
+                                input#ph_mobile.form-control(type='text' placeholder='Mobile Phone')
+                        div.col
+                            div.form-group.form-group-no-border
+                                label(for='ph_work').form-control-label Work Phone
+                                input#ph_work.form-control(type='text' placeholder='Work Phone')
+                    div.row.pb-2
+                        div.col-md-12
+                            div.form-group.form-group-no-border
+                                label(for='addr_l1').form-control-label Street Address
+                                input#addr_l1.form-control(type='text' placeholder='Street Address')
+                        div.col-6
+                            div.form-group.form-group-no-border
+                                label(for='addr_town').form-control-label Town/Suburb
+                                input#addr_town.form-control(type='text' placeholder='Town/Suburb')
+                        div.col-3
+                            div.form-group.form-group-no-border
+                                label(for='addr_state').form-control-label State
+                                input#addr_state.form-control(type='text' placeholder='State')
+                        div.col-3
+                            div.form-group.form-group-no-border
+                                label(for='addr_post').form-control-label Postcode
+                                input#addr_post.form-control(type='text' placeholder='Postcode')
+                    div.row.pb-2
+                        div.col-3
+                            div.formm-group
+                                label.form-control-label Defence Member?
+                                div.checkbox
+                                    input#defence(type='checkbox' value='defence_yes' autocomplete="off")
+                                    label(for='defence').form-control-label Yes
+                        div.col
+                            div.form-group
+                                label(for='defence_section').form-control-label If yes, what part?
+                                input#defence_section.form-control(type='text' placeholder='Army / Navy / Airforce')
+                div.row.pb-2.hidden#formFeedback
+            div.modal-footer
+                button.btn.btn-default.btn-simple(data-dismiss='modal') Cancel
+                button.btn.btn-info.btn-simple.addUser Create
+                
+script(type='text/javascript' src='/assets/js/users.js')
+d

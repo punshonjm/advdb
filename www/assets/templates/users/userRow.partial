@@ -1,0 +1,7 @@
+<tr class='userRow' data-uid='{{USER_ID}}'>
+    <td>{{FIRST_NAME}}</td>
+    <td>{{LAST_NAME}}</td>
+    <td>{{GENDER}}</td>
+    <td>{{DOB}}</td>
+    <td><button class='btn btn-primary btn-round open'>More</button></td>
+</tr>

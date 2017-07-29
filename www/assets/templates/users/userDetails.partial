@@ -1,0 +1,84 @@
+<div class='row'>
+    <div class='col'>
+        <button class='btn btn-primary btn-lg btn-round closeUser'>
+            <i class='fa fa-caret-left'></i> Back
+        </button>
+    </div>
+</div>
+<div class='row mt-3'>
+    <div class='col'>
+        <div class='card'>
+            <div class='card-header clearfix'>
+                <h3 class='card-title'>
+                    User Details
+                    <span class='float-right text-primary'>
+                        <i class='fa fa-edit editUser'></i>
+                    </span>
+                </h3>
+            </div>
+            <div class='card-block'>
+                <div class='row'>
+                    <div class='col'>
+                        <p>
+                            <strong>Name:</strong><br>
+                            {{FIRST_NAME}} {{LAST_NAME}}
+                        </p>
+                    </div>
+                    <div class='col'>
+                        <p>
+                            <strong>Defence:</strong><br>
+                            {{DEFENCE}}
+                        </p>
+                    </div>
+                    <div class='col'>
+                        <p>
+                            <strong>Date of Birth:</strong><br>
+                            {{DOB}}
+                        </p>
+                    </div>
+                    <div class='col'>
+                        <p>
+                            <strong>Gender:</strong><br>
+                            {{GENDER}}
+                        </p>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <p>
+                            <strong>Address:</strong><br>
+                            {{ADDR_L1}}<br>
+                            {{ADDR_TOWN}}, {{ADDR_STATE}} {{ADDR_POST}}
+                        </p>
+                    </div>
+                    <div class='col'>
+                        <p>
+                            <strong>Email:</strong><br>
+                            {{EMAIL}}
+                        </p>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col'>
+                        <p>
+                            <strong>Home Phone:</strong><br>
+                            {{PH_HOME}}
+                        </p>
+                    </div>
+                    <div class='col'>
+                        <p>
+                            <strong>Work Phone:</strong><br>
+                            {{PH_WORK}}
+                        </p>
+                    </div>
+                    <div class='col'>
+                        <p>
+                            <strong>Mobile Phone:</strong><br>
+                            {{PH_MOBILE}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
