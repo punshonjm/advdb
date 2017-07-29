@@ -6,7 +6,6 @@ const moment = require('moment');
 
 const server = express();
 global.config = require('./config.json');
-console.log(global.config)
 global.auth = require(`${__dirname}/modules/auth`);
 global.db = require(`${__dirname}/modules/db`);
 
