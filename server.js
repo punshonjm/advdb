@@ -24,6 +24,6 @@ server.use('/', routes)
 // const apiRouting = require(`${__dirname}/modules/api`);
 // server.use('/api', apiRouting);
 
-server.listen(8080, () => {
+server.listen(8000, () => {
     console.log(moment().format('YYYY-MM-DD h:mm a'), ":: AdventurethonDB Started");
 });
