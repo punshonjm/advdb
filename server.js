@@ -20,22 +20,10 @@ global.config = require(`${__dirname}/config.json`);
 global.auth = require(`${__dirname}/modules/auth`);
 global.db = require(`${__dirname}/modules/db`);
 
-// Static serve /.well-known to allow renewal of Let's Encrypt certificates
-// server.use('/.well-known', express.static(path.join(__dirname, 'www/.well-known')));
-
 // Middleware to parse various parts of requests
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
-
-// Reroute non-secure connections to https
-// server.all('*', (req, res, next) => {
-//     if (req.secure) {
-//         return next();
-//     } else {
-//         res.redirect(`https://${req.hostname}${req.url}`);
-//     }
-// });
 
 // Serve static public folder
 server.use('/public', express.static(path.join(__dirname, 'www/public')));
@@ -44,28 +32,15 @@ server.use(auth.check.Session);
 // Serve static assets folder
 server.use('/assets', express.static(path.join(__dirname, 'www/assets')));
 
+// Import routing and assugb ti default route
 const routes = require(`${__dirname}/modules/routes`);
 server.use('/', routes);
 
-// const pageRouting = require(`${__dirname}/modules/routes`)(server);
-
-// const apiRouting = require(`${__dirname}/modules/api`);
-// server.use('/api', apiRouting);
-
-// let httpsServer = https.createServer({
-//     key: fs.readFileSync(path.join(__dirname, 'ssl/private.pem')),
-//     cert: fs.readFileSync(path.join(__dirname, 'ssl/certificate.pem')),
-// }, server).listen(443, () => {
-//     console.log(moment().format('YYYY-MM-DD h:mm a'), ":: AdventurethonDB Started");
-// });
-// let httpServer = http.createServer(server).listen(80, () => {
-//     console.log(moment().format('YYYY-MM-DD h:mm a'), ":: AdventurethonDB Started");
-// });
-
 require('letsencrypt-express').create({
-    server: 'staging',
+    server: 'https://acme-v01.api.letsencrypt.org/directory',
     email: global.config.eml,
     agreeTos: true,
     approveDomains: [global.config.url],
     app: server,
+    debug: false,
 }).listen(80, 443);
