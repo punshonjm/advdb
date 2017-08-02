@@ -3,10 +3,9 @@
 
 config.json
 
-# Ignore PHP folder
-PHP/
-
 fonts/
+ssl/
+.well-known/
 
 
 # .gitignore based on GitHubs recommended gitignore for Node projects
