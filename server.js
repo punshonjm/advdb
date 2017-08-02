@@ -21,7 +21,7 @@ global.auth = require(`${__dirname}/modules/auth`);
 global.db = require(`${__dirname}/modules/db`);
 
 // Static serve /.well-known to allow renewal of Let's Encrypt certificates
-server.use('/.well-known'. express.static(path.join(__dirname, 'www/.well-known')));
+server.use('/.well-known', express.static(path.join(__dirname, 'www/.well-known')));
 
 // Middleware to parse various parts of requests
 server.use(cookieParser());
