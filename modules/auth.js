@@ -1,4 +1,4 @@
-2'use strict'
+'use strict'
 
 require('babel-polyfill');
 
