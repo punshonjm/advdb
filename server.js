@@ -8,6 +8,7 @@ const http = require('http');
 const https = require('https');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 
 // Require additional modules
 const moment = require('moment');
@@ -21,6 +22,7 @@ global.auth = require(`${__dirname}/modules/auth`);
 global.db = require(`${__dirname}/modules/db`);
 
 // Middleware to parse various parts of requests
+server.use(helmet());
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
