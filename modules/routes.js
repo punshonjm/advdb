@@ -84,10 +84,12 @@ let errorHandler = function(req, res, error) {
         }).end();
     } else if (error.notAuthorised) {
         res.status();
+        res.end();
     } else {
         console.error(req.method, req.url, error);
         if ('note' in error) {
             console.error('Note:', error.note);
         }
+        res.status(500).end();
     }
 }

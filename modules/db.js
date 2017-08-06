@@ -4,7 +4,7 @@ var db = {};
 
 db.pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
+    host: global.config.con,
     user: global.config.usr,
     password: global.config.sql,
     database: 'advdb',
