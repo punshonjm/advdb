@@ -10,7 +10,7 @@ routes.get('/', (req, res) => {
         return page.compile('home', data);
     }).then((html) => {
         res.send(html).end();
-    }).catch((error) => errorHandler(req, req, error));
+    }).catch((error) => errorHandler(req, res, error));
 });
 
 // Handle request for home page
@@ -19,7 +19,7 @@ routes.get('/', (req, res) => {
         return page.compile('home', data);
     }).then((html) => {
         res.send(html).end();
-    }).catch((error) => errorHandler(req, req, error));
+    }).catch((error) => errorHandler(req, res, error));
 });
 
 routes.get('/users', (req, res) => {
@@ -27,7 +27,7 @@ routes.get('/users', (req, res) => {
         return page.compile('users/main', data);
     }).then((html) => {
         res.send(html).end();
-    }).catch((error) => errorHandler(req, req, error));
+    }).catch((error) => errorHandler(req, res, error));
 });
 
 routes.get('/races', (req, res) => {
@@ -35,14 +35,14 @@ routes.get('/races', (req, res) => {
         return page.compile('races/main', data);
     }).then((html) => {
         res.send(html).end();
-    }).catch((error) => errorHandler(req, req, error));
+    }).catch((error) => errorHandler(req, res, error));
 });
 
 // Handle request for public key
 routes.get('/key', (req, res) => {
     auth.publicKey().then((publicKey) => {
         res.json(publicKey).end();
-    }).catch((error) => errorHandler(req, req, error));
+    }).catch((error) => errorHandler(req, res, error));
 });
 
 // Handle login request
@@ -58,7 +58,7 @@ routes.post('/login', (req, res) => {
             expires: moment(user.expires).format('YYYY-MM-DD HH:mm:ss'),
         };
         res.status(200).cookie('advdb', cookie, {expires: moment(user.expires).toDate()}).end();
-    }).catch((error) => errorHandler(req, req, error));
+    }).catch((error) => errorHandler(req, res, error));
 });
 
 // Handle logout request
@@ -69,7 +69,7 @@ routes.get('/logout', (req, res) => {
         } else {
             res.status(500).end();
         }
-    }).catch((error) => errorHandler(req, req, error));
+    }).catch((error) => errorHandler(req, res, error));
 });
 
 const api = require('./api');
@@ -77,7 +77,7 @@ routes.use('/api', api);
 
 module.exports = routes;
 
-let errorHandler = function(req, req, error) {
+let errorHandler = function(req, res, error) {
     if (error.authError) {
         res.status(401).json({
             message: error.message,
