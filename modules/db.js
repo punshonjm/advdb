@@ -4,7 +4,7 @@ var db = {};
 
 db.pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
+    host: '127.0.0.1',
     user: global.config.usr,
     password: global.config.sql,
     database: 'advdb',
@@ -14,21 +14,28 @@ db.pool = mysql.createPool({
 db.execute = function(query, expectingOne = false) {
     return new Promise(function(resolve, reject) {
         db.pool.getConnection((error, connection) => {
-            if (!('text' in query) && !('values' in query)) {
-                query = query.toParam();
-            }
-            connection.query(query.text, query.values, (error, rows) => {
-                connection.release();
-                if (error) {
-                    reject(error);
-                } else {
-                    if (expectingOne) {
-                        resolve((typeof rows[0] === typeof undefined) ? false : rows[0]);
-                    } else {
-                        resolve(rows);
-                    }
+            if (error) {
+                reject({
+                    error: error,
+                    note: 'SQL Connection Error',
+                });
+            } else {
+                if (!('text' in query) && !('values' in query)) {
+                    query = query.toParam();
                 }
-            });
+                connection.query(query.text, query.values, (error, rows) => {
+                    connection.release();
+                    if (error) {
+                        reject(error);
+                    } else {
+                        if (expectingOne) {
+                            resolve((typeof rows[0] === typeof undefined) ? false : rows[0]);
+                        } else {
+                            resolve(rows);
+                        }
+                    }
+                });
+            }
         });
     });
 }
