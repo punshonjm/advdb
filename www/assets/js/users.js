@@ -3,7 +3,7 @@ var page = {
         currentlyOpen: null,
     },
     data: {
-        searchResults: null,
+        searchResults: {},
     },
     form: {
         action: {
@@ -140,6 +140,7 @@ var page = {
                                 message: xhr.message,
                             });
 
+                            // Parse returned content
                             let user = {};
                             var lKeys = Object.keys(data);
                             lKeys.map(function(lKey) {
@@ -151,19 +152,23 @@ var page = {
                             user.USER_ID = xhr.user_id;
                             page.data.searchResults[xhr.user_id] = user;
 
+                            // Parse user details to page
                             var html = page.parse.userDetails(user);
+                            $('#userDetails').html(html);
 
+                            // Show newly added user's details
                             $('#usersTable').hide();
                             $('#userDetails').show();
                             $("#addUser").modal('hide');
 
+                            // Add row
                             var tr = page.parse.userRow(user);
                             $('#searchResults').append(tr);
 
+                            // Reset form
                             $('#ph_home, #ph_mobile, #ph_work, #addr_l1, #addr_town, #addr_state, #addr_post, #defence_section, #dob, #email, #first_name, #last_name').val(null);
                             $('#defence').prop('checked', false);
                             $('#gender').val('').change();
-                            // TODO: open current user from xhr.user_id & reset form
                         } else if (xhr.status == 409) {
                             $this.prop('disable', false);
                             $.toaster({
@@ -257,14 +262,20 @@ var page = {
                     $this.prop('disabled', false);
                     if ('users' in xhr) {
                         page.data.searchResults = {};
-                        xhr.users.map((user) => {
-                            page.data.searchResults[user.USER_ID] = user;
-                            var tr = page.parse.userRow(user);
-                            $('#searchResults').append(tr);
-                        });
 
-                        if ($('#searchResults').is(':visible') != true) {
-                            page.action.user.Close();
+                        if (xhr.users.length > 0) {
+                            xhr.users.map((user) => {
+                                page.data.searchResults[user.USER_ID] = user;
+                                var tr = page.parse.userRow(user);
+                                $('#searchResults').append(tr);
+                            });
+
+                            if ($('#searchResults').is(':visible') != true) {
+                                page.action.user.Close();
+                            }
+                        } else {
+                            var tr = "<tr class='text-center' style='min-height:60px;' colspan='5'>Your search returned no results.</tr>"
+                            $('#searchResults').append(tr);
                         }
                     } else {
                         var message = (xhr.responseJSON.message) ? xhr.responseJSON.message : 'A server error occured, please try again.';
