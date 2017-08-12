@@ -271,7 +271,7 @@ var internal = {
             });
         },
     },
-    _createAccount: function() {
+    _createAccount: function(details) {
         console.log('Setup for testing, to be finished');
         return false;
         return Promise.resolve().then((next) => {
@@ -284,7 +284,7 @@ var internal = {
                 text: "INSERT INTO advdb._users SET ?",
                 values: {
                     UID: 'abc',
-                    USERNAME: 'Josh',
+                    USERNAME: details.username,
                     PASSWORD: hashed,
                 }
             }

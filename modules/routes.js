@@ -30,9 +30,9 @@ routes.get('/users', (req, res) => {
     }).catch((error) => errorHandler(req, res, error));
 });
 
-routes.get('/races', (req, res) => {
+routes.get('/events', (req, res) => {
     auth.orize(req, res).then((data) => {
-        return page.compile('races/main', data);
+        return page.compile('events/main', data);
     }).then((html) => {
         res.send(html).end();
     }).catch((error) => errorHandler(req, res, error));

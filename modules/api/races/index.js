@@ -1,4 +1,4 @@
-const racesRouter = require('express').Router();
+const eventsRouter = require('express').Router();
 
 
-module.exports = racesRouter;
+module.exports = eventsRouter;
