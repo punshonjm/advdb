@@ -49,10 +49,17 @@
                             <p>Events</p>
                         </a>
                     </li>
+                    <li class='nav-item hidden-lg-up'>
+                        <span class="nav-link active logout" href="/events">
+                            <p>Logout</p>
+                        </span>
+                    </li>
                 </ul>
             </div>
-            <button class="btn btn-neutral btn-round justify-content-end logout">
-            	<i class="fa fa-sign-out"></i> Logout
-            </button>
+            <span class='hidden-md-down'>
+                <button class="btn btn-neutral btn-round justify-content-end logout">
+                    <i class="fa fa-sign-out"></i> Logout
+                </button>
+            </span>
         </nav>
         <main class='wrapper px-5'>

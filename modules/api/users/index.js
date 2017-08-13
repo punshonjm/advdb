@@ -30,10 +30,14 @@ usersRouter.get('/search', (req, res) => {
             return internal.decrypt(user);
         }).filter((user) => {
             let matches = keys.filter((key) => {
-                let check = FuzzySet();
-                check.add(user[key]);
-                let result = check.get(searchParams[key]);
-                return (result !== null) ? true : false;
+                if (!internal.nonFuzzyFields.includes(key)) {
+                    let check = FuzzySet();
+                    check.add(user[key]);
+                    let result = check.get(searchParams[key]);
+                    return (result !== null) ? true : false;
+                } else {
+                    return (user[key] == searchParams[key]) ? true : false;
+                }
             });
 
             return (matches.length == keys.length) ? true : false;
@@ -51,6 +55,7 @@ usersRouter.get('/search', (req, res) => {
             res.status(200).json(searchResults).end();
         }
     }).catch((error) => {
+        global.errorHandler(req, res, error);
         console.log(req.method, req.url, error);
     });
 });
@@ -94,6 +99,7 @@ usersRouter.post('/new', (req, res) => {
         if (error.userFound) {
             res.status(409).json({message: 'It looks like this user might already exist!', user: error.userFound}).end();
         } else {
+            global.errorHandler(req, res, error);
             console.log(req.method, req.url, error);
         }
     });
@@ -157,15 +163,17 @@ usersRouter.post('/update', (req, res) => {
         } else if (error.missingUid) {
             res.status(404).json({message: error.message}).end();
         } else {
+            global.errorHandler(req, res, error);
             console.log(req.method, req.url, error);
         }
     });
 });
 
 var internal = {
-    allowedSearchFields: ['first_name', 'last_name', 'email', 'gender', 'dob', 'ph_mobile', 'ph_home', 'ph_work'],
-    fields: ['FIRST_NAME','LAST_NAME','DOB','GENDER','DEFENCE','EMAIL','PH_MOBILE','PH_HOME','PH_WORK','ADDR_L1','ADDR_TOWN','ADDR_STATE','ADDR_POST'],
+    allowedSearchFields: ['first_name', 'last_name', 'email', 'gender', 'dob', 'ph_mobile', 'ph_home', 'ph_work', 'dnd'],
+    fields: ['FIRST_NAME','LAST_NAME','DOB','GENDER','DEFENCE','EMAIL','PH_MOBILE','PH_HOME','PH_WORK','ADDR_L1','ADDR_TOWN','ADDR_STATE','ADDR_POST', 'DND'],
     privateFields: ['FIRST_NAME','LAST_NAME','EMAIL','PH_MOBILE','PH_HOME','PH_WORK','DOB','ADDR_L1','ADDR_TOWN','ADDR_STATE','ADDR_POST','DEFENCE'],
+    nonFuzzyFields: ['DND'],
     encrypt: function(user) {
         internal.privateFields.map((key) => {
             if (key in user) {

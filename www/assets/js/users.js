@@ -27,6 +27,7 @@ var page = {
                     addr_state: $('#edit_addr_state').val(),
                     addr_post: $('#edit_addr_post').val(),
                     defence: (!$('#edit_defence').is(':checked')) ? 'No' : $('#edit_defence_section').val(),
+                    dnd: ($('#edit_dnd').is(':checked')) ? '1' : '0',
                 }
 
                 var required = ['first_name', 'last_name', 'dob', 'gender', 'defence'];
@@ -63,6 +64,9 @@ var page = {
                             lKeys.map(function(lKey) {
                                 if (lKey != 'uid') {
                                     let uKey = lKey.toUpperCase();
+                                    if (uKey == 'DND') {
+                                        data[lKey] = Number(data[lKey]);
+                                    }
                                     user[uKey] = data[lKey];
                                 }
                             });
@@ -77,7 +81,6 @@ var page = {
                                 page.config.currentlyOpen = xhr.user_id;
                             }
                             page.data.searchResults[xhr.user_id] = user;
-
                             var html = page.parse.userDetails(user);
                             $('#userDetails').html(html);
                         } else {
@@ -110,6 +113,7 @@ var page = {
                     addr_state: $('#addr_state').val(),
                     addr_post: $('#addr_post').val(),
                     defence: (!$('#defence').is(':checked')) ? 'No' : $('#defence_section').val(),
+                    dnd: ($('#dnd').is(':checked')) ? '1' : '0',
                 }
 
                 var required = ['first_name', 'last_name', 'dob', 'gender', 'defence'];
@@ -146,6 +150,9 @@ var page = {
                             lKeys.map(function(lKey) {
                                 if (lKey != 'uid') {
                                     let uKey = lKey.toUpperCase();
+                                    if (uKey == 'DND') {
+                                        data[lKey] = Number(data[lKey]);
+                                    }
                                     user[uKey] = data[lKey];
                                 }
                             });

@@ -57,6 +57,17 @@
                             {{EMAIL}}
                         </p>
                     </div>
+                    {{#if DND}}
+                    <div class='col'>
+                        <p class='align-middle'>
+                            Do Not Contact
+                            <span class='fa-stack fa-lg'>
+                                <i class='fa fa-phone fa-stack-1x'></i>
+                                <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                            </span>
+                        </p>
+                    </div>
+                    {{/if}}
                 </div>
                 <div class='row'>
                     <div class='col'>

@@ -2,14 +2,14 @@ div.row
     div.col
         h2 Users
     div.col.clearfix
-        button.btn.btn-primary.float-right(data-target='#addUser' data-toggle='modal') Add User
-        
+        button.btn.btn-primary.float-right(data-target='#addUser' data-toggle='modal') Add User        
 div.row 
-    div.col-md-3
+    div.col-12.col-lg-3
         div.card
             div.card-header
-                h4.m-0 
-                    |  Search Users   
+                h4.m-0
+                    |  Search 
+                    span.hidden-lg-down Users   
                     i.fa.fa-search.float-right
             div.card-block
                 div.row 
@@ -41,13 +41,18 @@ div.row
                         div.form-group
                             label Work Phone
                             input.form-control.search(name='ph_work' type='text' autocomplete='off')
+                        div.form-group
+                            label Do Not Contact
+                            select.form-control.search(name='dnd' required autocomplete='off')
+                                option(value='') Don't Filter
+                                option(value='1') Yes
+                                option(value='0' selected) No
                 div.row
                     div.col#searchOutput
             div.card-footer.clearfix
                 button.btn.btn-info.float-right.search_users Search
-            
-    div#usersTable.col-md-9
-        table.table
+    div#usersTable.col
+        table.table.table-reponsive
             thead
                 tr
                     th First Name
@@ -57,7 +62,6 @@ div.row
                     th 
             tbody#searchResults
     div#userDetails.col-md-9.hidden
-        
 div#addUser.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addUserLabel' aria-hidden='true')
     div.modal-dialog.modal-lg
         div.modal-content
@@ -123,6 +127,12 @@ div#addUser.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addUserLabel
                                 input#addr_post.form-control(type='text' placeholder='Postcode')
                     div.row.pb-2
                         div.col-3
+                            div.form-group
+                                label.form-control-label Do Not Contact?
+                                div.checkbox
+                                    input#dnd(type='checkbox' value='dnd_yes' autocomplete="off")
+                                    label(for='dnd').form-control-label Yes
+                        div.col-3
                             div.formm-group
                                 label.form-control-label Defence Member?
                                 div.checkbox
@@ -136,6 +146,4 @@ div#addUser.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addUserLabel
             div.modal-footer
                 button.btn.btn-default.btn-simple(data-dismiss='modal') Cancel
                 button.btn.btn-info.btn-simple.addUser Create
-                
 script(type='text/javascript' src='/assets/js/users.js')
-d

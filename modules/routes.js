@@ -5,14 +5,6 @@ const moment = require('moment');
 const page = require('./page')(Handlebars);
 const routes = require('express').Router();
 
-routes.get('/', (req, res) => {
-    auth.orize(req, res).then((data) => {
-        return page.compile('home', data);
-    }).then((html) => {
-        res.send(html).end();
-    }).catch((error) => errorHandler(req, res, error));
-});
-
 // Handle request for home page
 routes.get('/', (req, res) => {
     auth.orize(req, res).then((data) => {
@@ -64,27 +56,22 @@ routes.post('/login', (req, res) => {
 // Handle logout request
 routes.get('/logout', (req, res) => {
     auth.user.logout(req, res).then((sendRefresh) => {
-        if (sendRefresh) {
-            res.status(200).end();
-        } else {
-            res.status(500).end();
-        }
+        let code = (sendRefresh) ? 200 : 500;
+        res.status(code).end();
     }).catch((error) => errorHandler(req, res, error));
 });
 
 const api = require('./api');
 routes.use('/api', api);
-
 module.exports = routes;
 
-let errorHandler = function(req, res, error) {
+global.errorHandler = function(req, res, error) {
     if (error.authError) {
         res.status(401).json({
             message: error.message,
         }).end();
     } else if (error.notAuthorised) {
-        res.status();
-        res.end();
+        res.status(403).end();
     } else {
         console.error(req.method, req.url, error);
         if ('note' in error) {
