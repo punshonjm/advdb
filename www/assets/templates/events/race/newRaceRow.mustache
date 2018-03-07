@@ -1,0 +1,20 @@
+<tr class='newRace' {{#if id}}data-id="{{id}}"{{/if}}>
+    <td>
+        <div class='form-group'>
+            <input type='text' class='form-control raceDate' placeholder='Race Date' {{#if date}}value="{{date}}"{{/if}}/>
+        </div>
+    </td>
+    <td>
+        <div class='form-group'>
+            <input type='text' class='form-control raceCategory' placeholder='Category' {{#if category}}value="{{category}}"{{/if}}/>
+        </div>
+    </td>
+    <td class='raceLegCount'>{{#if legCount}}{{legCount}}{{/if}}</td>
+    <td>
+        <span class='d-flex justify-content-end'>
+            <span class='saveNewRace text-success p-2'>
+                <i class='fa fa-save fa-2x'></i>
+            </span>
+        </span>
+    </td>
+</tr>

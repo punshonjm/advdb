@@ -39,7 +39,7 @@ const routes = require(`${__dirname}/modules/routes`);
 server.use('/', routes);
 
 require('letsencrypt-express').create({
-    server: 'https://acme-v01.api.letsencrypt.org/directory',
+    server: global.config.svr,
     email: global.config.eml,
     agreeTos: true,
     approveDomains: [global.config.url],

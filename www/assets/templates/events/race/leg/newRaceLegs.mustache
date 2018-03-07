@@ -1,0 +1,38 @@
+<div class='newRaceLegs' data-id="{{id}}">
+    <div class='row'>
+        <div class='col'>
+            <p>
+                <strong>Race Date:</strong><br />{{date}}<br />
+                <strong>Race Category:</strong><br />{{category}}
+            </p>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <div class='card'>
+                <div class='card-header d-flex justify-content-between'>
+                    <h5 class='card-title'>Legs</h5>
+                    <span>
+                        <button class='btn btn-primary btn-simple addLeg'><i class='fa fa-plus'></i> Add Leg</button>
+                    </span>
+                </div>
+                <div class='card-block p-0'>
+                    <table id='newLegsTable' class='table'>
+                        <thead>
+                            <tr>
+                                <th>Leg Type</th>
+                                <th>Distance</th>
+                                <th>Unit</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class='list'></tbody>
+                    </table>
+                </div>
+                <div class='card-footer d-flex justify-content-end'>
+                    <button class='btn btn-primary btn-simple saveNewLegs'><i class='fa fa-save'></i>  Save </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

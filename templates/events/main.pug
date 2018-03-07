@@ -1,0 +1,59 @@
+div.row
+    div.col
+        h2 Events
+    div.col.clearfix
+        button.btn.btn-primary.float-right(data-target='#addEvent' data-toggle='modal') Add Event
+div.row
+    div.col-12.col-lg-3
+    div#eventList.col
+        table.table.table-responsive
+            thead
+                tr
+                    th
+            tbody#searchResults
+    div#eventDetails.col-md-9.hidden
+div#addEvent.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addEventLabel' aria-hidden='true')
+    div.modal-dialog.modal-lg
+        div.modal-content
+            div.modal-header
+                button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+                h4#addEventLabel.modal-title.mt-0 Add New Event
+            div.modal-body
+                div#form-body
+                    div#mainPanel
+                        div.row
+                            div.col
+                                div.form-group
+                                    label Start Date
+                                    input.form-control(type='text')
+                            div.col
+                                div.form-group
+                                    label End Date
+                                    input.form-control(type='text')
+                            div.col
+                                div.form-group
+                                    label Location
+                                    input.form-control(type='text')
+                        div.row.mt-3
+                            div.col 
+                                div.card
+                                    div.card-header.d-flex.justify-content-between
+                                        h5.card-title Races
+                                        span
+                                            button.btn.btn-primary.btn-simple.addRace
+                                                i.fa.fa-plus
+                                                | &nbsp;Add Race
+                                    div.card-block.p-0
+                                        table#races.table.w-100
+                                            thead
+                                                tr
+                                                    th Date
+                                                    th Category
+                                                    th Legs
+                                                    th  
+                                            tbody.list
+                    div#legsPanel.hidden
+            div.modal-footer
+                button.btn.btn-default.btn-simple(data-dismiss='modal') Cancel
+                button.btn.btn-info.btn-simple.addEvent Create
+script(type='text/javascript' src='/assets/js/events.js')

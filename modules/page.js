@@ -3,10 +3,9 @@ const path = require('path');
 const pug = require('pug');
 
 module.exports = function(Handlebars) {
-    walk('www/assets/templates', (filePath, rootDir, subDir, fileName) => {
+    walk('templates/base', (filePath, rootDir, subDir, fileName) => {
         let file = fileName.split('.');
-        let partialName = (subDir == 'base' && file[(file.length - 1)] == 'partial') ? file[0] : subDir.replace(/\//g, '.') + '.' + file[0];
-        fs.readFile(filePath, 'utf8', (error, partial) => Handlebars.registerPartial(partialName, partial));
+        fs.readFile(filePath, 'utf8', (error, partial) => Handlebars.registerPartial(file[0], partial));
     });
 
     Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {

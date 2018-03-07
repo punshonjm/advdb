@@ -1,0 +1,18 @@
+<tr class='race' data-id="{{id}}">
+    <td class='raceDate'>{{date}}</td>
+    <td class='raceCategory'>{{category}}</td>
+    <td class='raceLegCount'>{{#if legCount}}{{legCount}}{{else}}0{{/if}}</td>
+    <td>
+        <span class='d-flex justify-content-end'>
+            <span class='addRaceLegs text-success p-2' title='Add Legs'>
+                <i class='fa fa-plus fa-2x'></i>
+            </span>
+            <span class='editRace text-warning p-2' title='Edit'>
+                <i class='fa fa-edit fa-2x'></i>
+            </span>
+            <span class='removeRace text-danger p-2' title='Remove'>
+                <i class='fa fa-close fa-2x'></i>
+            </span>
+        </span>
+    </td>
+</tr>

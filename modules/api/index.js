@@ -30,7 +30,7 @@ walk('modules/api', (filePath, rootDir, subDir, fileName) => {
             let theseRoutes = require('./'+subDir);
             routes.use('/'+subDir, theseRoutes);
         } else {
-            console.log('not indexjs')
+            console.log('not indexjs');
         }
     }
 })

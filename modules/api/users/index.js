@@ -3,8 +3,6 @@ const auth = global.auth;
 const db = global.db;
 
 const moment = require('moment');
-const mysql = require('mysql');
-const sql = require('squel');
 const CryptoJS = require('crypto-js');
 
 const FuzzySet = require('fuzzyset.js');
@@ -15,7 +13,7 @@ usersRouter.get('/', (req, res) => {
 
 usersRouter.get('/search', (req, res) => {
     auth.orize(req, req).then((data) => {
-        let query = sql.select().from('advdb.adv_tbl_users');
+        let query = db.sql.select().from('advdb.adv_tbl_users');
         return db.execute(query);
     }).then((users) => {
         let searchParams = {}
@@ -73,7 +71,7 @@ usersRouter.post('/new', (req, res) => {
         let uid = user.FIRST_NAME.substring(0,2) + user.LAST_NAME.substring(0,2) + user.DOB.replace('-', '');
         user.USER_ID = CryptoJS.HmacSHA512(uid, moment(user.DOB, 'DD/MM/YYYY').format('x')).toString();
         user.ADDED_BY = data.uid;
-        let query = sql.select().from('advdb.adv_tbl_users').where('USER_ID = ?', user.USER_ID).limit(1);
+        let query = db.sql.select().from('advdb.adv_tbl_users').where('USER_ID = ?', user.USER_ID).limit(1);
         return db.execute(query, 1);
     }).then((userFound) => {
         if (userFound) {
@@ -126,11 +124,11 @@ usersRouter.post('/update', (req, res) => {
                 message: 'A valid User ID is missing, please refresh and try again.',
             });
         } else {
-            let query = sql.select().field('ID').from('advdb.adv_tbl_users').where('USER_ID = ?', req.body.uid).limit(1);
+            let query = db.sql.select().field('ID').from('advdb.adv_tbl_users').where('USER_ID = ?', req.body.uid).limit(1);
             if (user.USER_ID == req.body.uid) {
                 return db.execute(query, 1);
             } else {
-                let userCheck = sql.select().from('advdb.adv_tbl_users').where('USER_ID = ?', user.USER_ID).limit(1);
+                let userCheck = db.sql.select().from('advdb.adv_tbl_users').where('USER_ID = ?', user.USER_ID).limit(1);
                 return db.execute(userCheck, 1).then((userFound) => {
                     if (userFound) {
                         let info = {}
@@ -147,7 +145,7 @@ usersRouter.post('/update', (req, res) => {
         return internal.encrypt(user);
     }).then((encryptedUser) => {
         let query = {
-            text: "UPDATE advdb.adv_tbl_users SET ? WHERE ID = "+mysql.escape(dbID),
+            text: "UPDATE advdb.adv_tbl_users SET ? WHERE ID = "+db.mysql.escape(dbID),
             values: encryptedUser,
         }
         return db.execute(query);

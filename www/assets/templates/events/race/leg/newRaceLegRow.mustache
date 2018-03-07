@@ -1,0 +1,25 @@
+<tr class='newLeg' {{#if id}}data-id='{{id}}'{{/if}}>
+    <td>
+        {{type}}
+        <div class='form-group'>
+            <input type='text' class='form-control raceLegType' placeholder='Type' {{#if type}}value="{{type}}"{{/if}}/>
+        </div>
+    </td>
+    <td>
+        <div class='form-group'>
+            <input type='text' class='form-control raceLegDistance' placeholder='Distance' {{#if distance}}value="{{distance}}"{{/if}}/>
+        </div>
+    </td>
+    <td>
+        <div class='form-group'>
+            <input type='text' class='form-control raceLegDistanceUnit' placeholder='Distance Unit (km)' {{#if unit}}value="{{unit}}"{{/if}}/>
+        </div>
+    </td>
+    <td>
+        <span class='d-flex justify-content-end'>
+            <span class='saveNewLeg text-success p-2'>
+                <i class='fa fa-save fa-2x'></i>
+            </span>
+        </span>
+    </td>
+</tr>

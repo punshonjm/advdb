@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const Squel = require('squel');
 
 var db = {};
 
@@ -10,6 +11,9 @@ db.pool = mysql.createPool({
     database: 'advdb',
     dateString: true,
 });
+
+db.mysql = mysql;
+db.sql = Squel;
 
 db.execute = function(query, expectingOne = false) {
     return new Promise(function(resolve, reject) {
@@ -41,9 +45,12 @@ db.execute = function(query, expectingOne = false) {
 }
 
 if (!String.isNullOrEmpty) {
-    String.isNullOrEmpty = function(value) {
-        return !(typeof value === 'string' && value.length > 0);
-    }
+    Object.defineProperty(String, 'isNullOrEmpty', {
+        value: function(val) {
+            return !(typeof value === 'string' && value.length > 0);
+        },
+        enumerable: false,
+    });
 }
 
 module.exports = db;
