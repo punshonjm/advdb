@@ -25,7 +25,10 @@ div.row
                             input.form-control.search(name='email' type='text' autocomplete='off')
                         div.form-group
                             label Date of Birth 
-                            input.form-control.search.dob.date-picker(name='dob' type='text' autocomplete='off' data-datepicker-color='primary' data-date-format='dd/mm/yyyy')
+                            div#dtp_searchDoB.input-group.dtp(data-target-input='nearest')
+                                input.form-control.search.dob(name='dob' type='text' data-target='#dtp_searchDoB' autocomplete='off').datetimepicker-input
+                                span.input-group-addon(data-target='#dtp_searchDoB' data-toggle='datetimepicker')
+                                    i.fa.fa-calendar
                         div.form-group
                             label Gender
                             select.form-control.search(name='gender' required autocomplete='off')
@@ -87,7 +90,10 @@ div#addUser.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addUserLabel
                         div.col 
                             div.form-group.form-group-no-border#dobContainer
                                 label(for='dob').form-control-label Date of Birth *
-                                input#dob.form-control.date-picker(type='text' placeholder='Date of Birth' data-datepicker-color='primary' data-date-format='dd/mm/yyyy' required)
+                                div#dtp_newDoB.input-group.dtp(data-target-input='nearest')
+                                    input#dob.form-control(name='dob' type='text' data-target='#dtp_newDoB' autocomplete='off' placeholder='Date of Birth' required).datetimepicker-input
+                                    span.input-group-addon(data-target='#dtp_newDoB' data-toggle='datetimepicker')
+                                        i.fa.fa-calendar
                         div.col 
                             div.form-group.form-group-no-border
                                 label(for='gender').form-control-label Gender *

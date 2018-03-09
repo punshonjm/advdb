@@ -35,21 +35,9 @@ page.initialise = function() {
     page.initialise.DatePickers();
 }
 page.initialise.DatePickers = function() {
-    $('.date-picker').each(function() {
-        $(this).datepicker({
-            templates: {
-                leftArrow: '<i class="now-ui-icons arrows-1_minimal-left"></i>',
-                rightArrow: '<i class="now-ui-icons arrows-1_minimal-right"></i>'
-            }
-        }).on('show', function() {
-            $('.datepicker').addClass('open');
-
-            datepicker_color = $(this).data('datepicker-color');
-            if( datepicker_color.length != 0){
-                $('.datepicker').addClass('datepicker-'+ datepicker_color +'');
-            }
-        }).on('hide', function() {
-            $('.datepicker').removeClass('open');
+    $('.dtp').each(function() {
+        $(this).datetimepicker({
+            format: 'DD/MM/YYYY'
         });
     });
 }

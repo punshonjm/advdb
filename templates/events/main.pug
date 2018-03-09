@@ -25,15 +25,21 @@ div#addEvent.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addEventLab
                             div.col
                                 div.form-group
                                     label Start Date
-                                    input.form-control(type='text')
+                                    div#dtp_newStartDate.input-group.dtp(data-target-input='nearest')
+                                        input#newEventStart.form-control(type='text' data-target='#dtp_newStartDate' autocomplete='off').datetimepicker-input
+                                        span.input-group-addon(data-target='#dtp_newStartDate' data-toggle='datetimepicker')
+                                            i.fa.fa-calendar
                             div.col
                                 div.form-group
                                     label End Date
-                                    input.form-control(type='text')
+                                    div#dtp_newEndDate.input-group.dtp(data-target-input='nearest')
+                                        input#newEventEnd.form-control(type='text' data-target='#dtp_newEndDate' autocomplete='off').datetimepicker-input
+                                        span.input-group-addon(data-target='#dtp_newEndDate' data-toggle='datetimepicker')
+                                            i.fa.fa-calendar
                             div.col
                                 div.form-group
                                     label Location
-                                    input.form-control(type='text')
+                                    input#location.form-control(type='text' autocomplete='off')
                         div.row.mt-3
                             div.col 
                                 div.card

@@ -58,7 +58,12 @@
                     <div class='col'>
                         <div class='form-group form-group-no-border'>
                             <label for='edit_dob' class='form-control-label'>Date of Birth</label>
-                            <input id='edit_dob' class='form-control date-picker'type='text' placeholder='Date of Birth' data-datepicker-color='primary' data-date-format='dd/mm/yyyy' required value='{{DOB}}'/>
+                            <div id='dtp_editDoB' class='input-group dtp' data-target-input='nearest'>
+                                <input id='edit_dob' class='form-control datetimepicker-input' type='text' placeholder='Date of Birth' required value='{{DOB}}' data-target='#dtp_editDoB' />
+                                <span class='input-group-addon' data-target='#dtp_editDoB' data-toggle='datetimepicker'>
+                                    <i class='fa fa-calendar'></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class='col'>

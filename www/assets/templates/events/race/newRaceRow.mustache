@@ -1,12 +1,12 @@
 <tr class='newRace' {{#if id}}data-id="{{id}}"{{/if}}>
     <td>
         <div class='form-group'>
-            <input type='text' class='form-control raceDate' placeholder='Race Date' {{#if date}}value="{{date}}"{{/if}}/>
+            <input type='text' class='form-control raceDate' placeholder='Race Date' {{#if date}}value="{{date}}"{{/if}} autocomplete='off' />
         </div>
     </td>
     <td>
         <div class='form-group'>
-            <input type='text' class='form-control raceCategory' placeholder='Category' {{#if category}}value="{{category}}"{{/if}}/>
+            <input type='text' class='form-control raceCategory' placeholder='Category' {{#if category}}value="{{category}}"{{/if}} autocomplete='off' />
         </div>
     </td>
     <td class='raceLegCount'>{{#if legCount}}{{legCount}}{{/if}}</td>

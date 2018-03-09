@@ -12,7 +12,16 @@ page.initialise = function() {
         { dir: '/assets/templates/events/race/leg/', name: 'newRaceNewLegRow' },
         { dir: '/assets/templates/events/race/leg/', name: 'newRaceLegRow' },
     ]);
+
+    page.initialise.dtp();
 };
+page.initialise.dtp = function() {
+    $('.dtp').each(function() {
+        $(this).datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+    });
+}
 
 $(document).on('click', '.addEvent', function() {
     page.create.event($(this));
@@ -20,7 +29,60 @@ $(document).on('click', '.addEvent', function() {
 
 page.create = {};
 page.create.event = function($this) {
-    
+    $('.has-warning').removeClass("has-warning");
+
+    var errors = [];
+    var data = {};
+    data.event = {};
+    data.event.start = $('#newEventStart').val();
+    data.event.end = $('#newEventEnd').val();
+    data.event.location = $('#location').val();
+    data.races = {};
+
+    $('#races tbody.list').children('tr.race').each(function() {
+        var race = page.create.race.parseRow($(this));
+        data.races[race.id] = race;
+
+        if (race.legs.length > 1) {
+            errors.push({ 'for': 'race', 'id': race.id });
+        }
+    });
+
+    console.log(data);
+
+    if (String.isNullOrEmpty(data.event.start)) {
+        errors.push({for: 'value', id: '#newEventStart' });
+    }
+    if (String.isNullOrEmpty(data.event.end)) {
+        errors.push({for: 'value', id: '#newEventEnd' });
+    }
+    if (String.isNullOrEmpty(data.event.location)) {
+        errors.push({for: 'value', id: '#location' });
+    }
+
+    if (errors.length == 0) {
+        $.post('/api/events/new', data, function(resp) {
+            if (resp.status == 200) {
+
+            } else {
+                
+            }
+        }).fail(function() {
+
+        });
+    } else {
+        errors.map(function(error) {
+            if (error.for == 'value') {
+                $('#'+error.id).closest('.form-group').addClass('has-warning');
+            }
+            if (error.for == 'race') {
+                $('#races tbody.list').find('#'+error.id).addClass('bg-warning');
+                $.toaster({ priority: 'warning', title: 'Error', message: 'Ensure all races include at least one leg!' });
+            }
+        });
+
+        $.toaster({ priority: 'warning', title: 'Error', message: 'Please address the errors before submitting again!' });
+    }
 }
 
 $(document).on('click', '.addRace', function() {
@@ -52,6 +114,7 @@ page.create.race.parseRow = function($row) {
 page.create.race.new = function() {
     if (!$('tr.newRace').is(':visible')) {
         $('#races tbody.list').append(window.Templates.Compile.newRaceRow());
+        page.initialise.dtp();
     }
 }
 page.create.race.new.save = function($this) {
@@ -88,21 +151,22 @@ page.create.race.new.edit = function($this) {
     var $race = $this.closest('tr.race')
     var race = page.create.race.parseRow($race);
     $race.replaceWith(window.Templates.Compile.newRaceRow(race));
+    page.initialise.dtp();
 }
 
 page.create.race.legs = {};
 page.create.race.new.legs = {};
 $(document).on('click', '.race .addRaceLegs', function() {
     page.create.race.new.legs.show($(this));
-}).on('click', '.newRaceLegs .addLeg', function() {
+}).on('click', '#newRaceLegs .addLeg', function() {
     page.create.race.new.legs.add($(this));
-}).on('click', '.newRaceLegs .saveNewLeg', function() {
+}).on('click', '#newRaceLegs .saveNewLeg', function() {
     page.create.race.new.legs.saveNew($(this));
-}).on('click', '.newRaceLegs .editLeg', function() {
+}).on('click', '#newRaceLegs .editLeg', function() {
     page.create.race.new.legs.edit($(this));
-}).on('click', '.newRaceLegs .removeLeg', function() {
+}).on('click', '#newRaceLegs .removeLeg', function() {
     page.create.race.new.legs.remove($(this));
-}).on('click', '.newRaceLegs .saveNewLegs', function() {
+}).on('click', '#newRaceLegs .saveNewLegs', function() {
     page.create.race.new.legs.save($(this));
 })
 
@@ -120,11 +184,8 @@ page.create.race.new.legs.show = function($this) {
         });
     }
 };
-page.create.race.new.legs.parseRow = function($row) {
-
-}
 page.create.race.new.legs.add = function($this) {
-    if(!$('tr.newLeg').is(':visible')) {
+    if (!$('tr.newLeg').is(':visible')) {
         $('#newLegsTable tbody.list').append(window.Templates.Compile.newRaceNewLegRow());
     }
 };
@@ -139,6 +200,7 @@ page.create.race.new.legs.saveNew = function($this) {
         leg.id = _.uniqueId('leg');
     }
 
+    leg.raceId = $this.closest('#newRaceLegs').data().id;
     leg.type = $('.newLeg .raceLegType').val();
     leg.distance = $('.newLeg .raceLegDistance').val();
     leg.unit = $('.newLeg .raceLegDistanceUnit').val();
@@ -147,7 +209,13 @@ page.create.race.new.legs.saveNew = function($this) {
         $this.closest('.newLeg').remove();
         $('#newLegsTable tbody.list').append(window.Templates.Compile.newRaceLegRow(leg));
 
-        page.create.race.legs[$this.closest('#newRaceLegs').data().id].push(leg);
+        if (!(leg.raceId in page.create.race.legs)) {
+            page.create.race.legs[leg.raceId] = [];
+        }
+        page.create.race.legs[leg.raceId].push(leg);
+
+        var $td = $('#races tbody.list').find('tr.race[data-id="'+leg.raceId+'"]').find('.raceLegCount');
+        $td.text(Number($td.text()) + 1);
     } else {
         if (String.isNullOrEmpty(leg.type)) {
             $('tr.newLeg .raceLegType').closest(".form-group").addClass('has-warning');
@@ -174,8 +242,8 @@ page.create.race.new.legs.remove = function($this) {
         return (n.id == $leg.data().id);
     });
 
-    var $tr = $('#races tbody.list').find('tr.race[data-id="'+$leg.closest('#newRaceLegs').data().id+'"]')
-    $tr.text(Number($tr.text) - 1);
+    var $td = $('#races tbody.list').find('tr.race[data-id="'+$leg.closest('#newRaceLegs').data().id+'"]').find('.raceLegCount');
+    $td.text(Number($td.text()) - 1);
 
     $this.closest('.leg').remove();
 };
