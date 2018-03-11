@@ -14,14 +14,22 @@ page.initialise = function() {
     ]);
 
     page.initialise.dtp();
+    page.events.Load();
 };
 page.initialise.dtp = function() {
     $('.dtp').each(function() {
         $(this).datetimepicker({
-            format: 'DD/MM/YYYY'
+            format: 'DD/MM/YYYY',
         });
     });
 }
+
+page.events = {};
+page.events.Load = function() {
+    $.get('/api/events', function() {
+
+    });
+};
 
 $(document).on('click', '.addEvent', function() {
     page.create.event($(this));
@@ -43,12 +51,10 @@ page.create.event = function($this) {
         var race = page.create.race.parseRow($(this));
         data.races[race.id] = race;
 
-        if (race.legs.length > 1) {
+        if (race.legs.length < 1) {
             errors.push({ 'for': 'race', 'id': race.id });
         }
     });
-
-    console.log(data);
 
     if (String.isNullOrEmpty(data.event.start)) {
         errors.push({for: 'value', id: '#newEventStart' });
@@ -61,14 +67,21 @@ page.create.event = function($this) {
     }
 
     if (errors.length == 0) {
+        $this.prop('disabled', true);
         $.post('/api/events/new', data, function(resp) {
             if (resp.status == 200) {
-
+                $this.prop('disabled', false);
+                $('#addEvent').modal('hide');
+                page.events.Load();
+                page.create.eventReset();
+                $.toaster({ priority: 'success', title: 'Success', message: resp.message });
             } else {
-                
+                $this.prop('disabled', false);
+                $.toaster({ priority: 'warning', title: 'Error', message: resp.message });
             }
         }).fail(function() {
-
+            $this.prop('disabled', false);
+            $.toaster({ priority: 'warning', title: 'Error', message: 'A server error occured, please try again!' });
         });
     } else {
         errors.map(function(error) {
@@ -83,6 +96,14 @@ page.create.event = function($this) {
 
         $.toaster({ priority: 'warning', title: 'Error', message: 'Please address the errors before submitting again!' });
     }
+}
+page.create.eventReset = function() {
+    $('#newEventStart').val('');
+    $('#newEventEnd').val('');
+    $('#location').val('');
+    $('#addEvent tbody.list').empty();
+
+    page.create.race.legs = {};
 }
 
 $(document).on('click', '.addRace', function() {

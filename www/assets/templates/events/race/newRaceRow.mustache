@@ -1,7 +1,12 @@
 <tr class='newRace' {{#if id}}data-id="{{id}}"{{/if}}>
     <td>
         <div class='form-group'>
-            <input type='text' class='form-control raceDate' placeholder='Race Date' {{#if date}}value="{{date}}"{{/if}} autocomplete='off' />
+            <div class='input-group dtp' id='dtp_newRaceDate' data-target-input='nearest'>
+                <input type='text' class='form-control raceDate datetimepicker-input' placeholder='Race Date' data-target="#dtp_newRaceDate" {{#if date}}value="{{date}}"{{/if}} autocomplete='off' />
+                <span class='input-group-addon' data-toggle='datetimepicker' data-target="#dtp_newRaceDate">
+                    <i class='fa fa-calendar'></i>
+                </span>
+            </div>
         </div>
     </td>
     <td>

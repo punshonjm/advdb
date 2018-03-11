@@ -169,45 +169,47 @@ if (!Object.isEmpty) {
     };
 }
 
-Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
-    var operators, result;
+if (typeof Handlebars != 'undefined') {
+    Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
+        var operators, result;
 
-    if (arguments.length < 3) {
-        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-    }
+        if (arguments.length < 3) {
+            throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+        }
 
-    if (options === undefined) {
-        options = rvalue;
-        rvalue = operator;
-        operator = "===";
-    }
+        if (options === undefined) {
+            options = rvalue;
+            rvalue = operator;
+            operator = "===";
+        }
 
-    operators = {
-        '==': function (l, r) { return l == r; },
-        '===': function (l, r) { return l === r; },
-        '!=': function (l, r) { return l != r; },
-        '!==': function (l, r) { return l !== r; },
-        '<': function (l, r) { return l < r; },
-        '>': function (l, r) { return l > r; },
-        '<=': function (l, r) { return l <= r; },
-        '>=': function (l, r) { return l >= r; },
-        'typeof': function (l, r) { return typeof l == r; },
-        'in': function (l, r) { return (l in r); },
-    };
+        operators = {
+            '==': function (l, r) { return l == r; },
+            '===': function (l, r) { return l === r; },
+            '!=': function (l, r) { return l != r; },
+            '!==': function (l, r) { return l !== r; },
+            '<': function (l, r) { return l < r; },
+            '>': function (l, r) { return l > r; },
+            '<=': function (l, r) { return l <= r; },
+            '>=': function (l, r) { return l >= r; },
+            'typeof': function (l, r) { return typeof l == r; },
+            'in': function (l, r) { return (l in r); },
+        };
 
-    if (!operators[operator]) {
-        throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
-    }
+        if (!operators[operator]) {
+            throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+        }
 
-    result = operators[operator](lvalue, rvalue);
+        result = operators[operator](lvalue, rvalue);
 
-    if (result) {
-        return options.fn(this);
-    } else {
-        return options.inverse(this);
-    }
+        if (result) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
 
-});
+    });
+}
 
 window.Templates = {};
 window.Templates.Compile = {};

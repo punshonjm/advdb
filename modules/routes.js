@@ -77,6 +77,12 @@ global.errorHandler = function(req, res, error) {
         if ('note' in error) {
             console.error('Note:', error.note);
         }
-        res.status(500).end();
+        if ('msg' in error) {
+            res.status(500).json({
+                message: error.msg,
+            }).end();
+        } else {
+            res.status(500).end();
+        }
     }
 }
