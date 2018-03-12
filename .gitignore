@@ -1,6 +1,6 @@
 # Ignore c9 folder
 .c9/
-
+.DS_Store
 config.json
 
 fonts/

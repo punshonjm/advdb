@@ -1,0 +1,124 @@
+{{#each this}}
+    <div class='year hideOnShowMore'>
+        <div class='row'>
+            <div class='col'>
+                <h4>{{@key}}</h5>
+            </div>
+        </div>
+        <div class='row'>
+            {{#each this}}
+            <div class='col-md-4'>
+                <div class='card'>
+                    <div class='card-header'>
+                        <h5 class='card-title mb-0'>{{this.EVENT_YEAR}} | {{this.LOCATION}}</h5>
+                    </div>
+                    <div class='card-block'>
+                        <div class='row'>
+                            <div class='col'>
+                                <p>
+                                    <strong>Start Date:</strong> {{this.START_DATE}} <br />
+                                    <strong>End Date:</strong> {{this.END_DATE}} <br />
+                                </p>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col'>
+                                <h6>Races</h6>
+                                <div class='list-group'>
+                                    {{#each this.RACES}}
+                                    <div class='list-group-item d-flex justify-content-between'>
+                                        <strong>{{this.RACE_CATEGORY}}</strong> <span>{{this.RACE_DATE}}</span>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='card-footer d-flex justify-content-end'>
+                        <button class='btn btn-primary btn-simple showMore' data-target='#{{this.EVENT_ID}}'>Show More</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <hr />
+    </div>
+{{/each}}
+{{#each this}}
+{{#each this}}
+<div class='showMorePanel' id='{{this.EVENT_ID}}' style='display:none;'>
+    <div class='row'>
+        <div class='col-md-4'>
+            <div class='card'>
+                <div class='card-header'>
+                    <h5 class='card-title mb-0'>Event Details</h5>
+                </div>
+                <div class='card-block'>
+                    <div class='row'>
+                        <div class='col'>
+                            <p>
+                                <strong>Location:</strong> {{this.LOCATION}} <br />
+                            </p>
+                            <p>
+                                <strong>Start Date:</strong> {{this.START_DATE}} <br />
+                                <strong>End Date:</strong> {{this.END_DATE}} <br />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class='card-footer d-flex justify-content-end'>
+                    <button class='btn btn-primary btn-simple hideMore'>Hide Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <div class='card'>
+                <div class='card-header'>
+                    <h5 class='card-title mb-0'>Event Races</h5>
+                </div>
+                <div class='card-block'>
+                    <div class='row'>
+                        {{#each this.RACES}}
+                        <div class='col-md-4'>
+                            <div class='card'>
+                                <div class='card-header'>
+                                    <h5 class='card-title mb-0 d-flex justify-content-between'>
+                                        <strong>{{this.RACE_CATEGORY}}</strong>
+                                        <span>{{this.RACE_DATE}}</span>
+                                    </h5>
+                                </div>
+                                <div class='card-block'>
+                                    <table class='table'>
+                                        <thead>
+                                            <tr>
+                                                <th>Leg Type</th>
+                                                <th>Distance</th>
+                                                <th>Unit</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each this.LEGS}}
+                                            <tr class='leg' id="{{this.LEG_ID}}">
+                                                <td>{{this.LEG_TYPE}}</td>
+                                                <td>{{this.LEG_DISTANCE}}</td>
+                                                <td>{{this.LEG_UNIT}}</td>
+                                                <td></td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+{{/each}}

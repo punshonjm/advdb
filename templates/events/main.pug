@@ -4,14 +4,8 @@ div.row
     div.col.clearfix
         button.btn.btn-primary.float-right(data-target='#addEvent' data-toggle='modal') Add Event
 div.row
-    div.col-12.col-lg-3
-    div#eventList.col
-        table.table.table-responsive
-            thead
-                tr
-                    th
-            tbody#searchResults
-    div#eventDetails.col-md-9.hidden
+    div.col
+        div#eventList
 div#addEvent.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addEventLabel' aria-hidden='true')
     div.modal-dialog.modal-lg
         div.modal-content

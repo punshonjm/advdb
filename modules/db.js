@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const Squel = require('squel');
+const Moment = require('moment');
 
 var db = {};
 
@@ -14,6 +15,13 @@ db.pool = mysql.createPool({
 
 db.mysql = mysql;
 db.sql = Squel;
+
+db.sql.date = function(column, format = 'DD/MM/YYYY') {
+    return Moment(column, 'YYYY-MM-DD').format(format);
+};
+db.sql.dateTime = function(column, format = 'DD/MM/YYYY h:mm a') {
+    return Moment(column, 'YYYY-MM-DD HH:mm:ss').format(format);
+};
 
 db.execute = function(query, expectingOne = false) {
     return new Promise(function(resolve, reject) {

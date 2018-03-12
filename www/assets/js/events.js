@@ -6,6 +6,7 @@ $(document).ready(function() {
 
 page.initialise = function() {
     window.Templates.Load([
+        { dir: '/assets/templates/events/', name: 'eventList' },
         { dir: '/assets/templates/events/race/', name: 'newRaceRow' },
         { dir: '/assets/templates/events/race/', name: 'raceRow' },
         { dir: '/assets/templates/events/race/leg/', name: 'newRaceLegs' },
@@ -24,16 +25,35 @@ page.initialise.dtp = function() {
     });
 }
 
-page.events = {};
-page.events.Load = function() {
-    $.get('/api/events', function() {
-
-    });
-};
-
 $(document).on('click', '.addEvent', function() {
     page.create.event($(this));
+}).on('click', '.showMore', function() {
+    page.events.more.Show( $(this) );
+}).on('click', '.hideMore', function() {
+    page.events.more.Hide();
 })
+
+page.events = {};
+page.events.Data = {};
+page.events.Load = function() {
+    $('#eventList').empty();
+    $.get('/api/events', function(resp) {
+        console.log(resp);
+        page.events.Data = resp;
+        let html = window.Templates.Compile.eventList(resp);
+        $('#eventList').html(html);
+    });
+};
+page.events.more = {};
+page.events.more.Show = function( $this ) {
+    $('.hideOnShowMore').hide();
+    $($this.data().target).show();
+}
+page.events.more.Hide = function() {
+    $('.showMorePanel').hide();
+    $('.hideOnShowMore').show();
+
+}
 
 page.create = {};
 page.create.event = function($this) {
