@@ -31,6 +31,8 @@ $(document).on('click', '.addEvent', function() {
     page.events.more.Show( $(this) );
 }).on('click', '.hideMore', function() {
     page.events.more.Hide();
+}).on('click', '.editEvent', function() {
+    page.events.Edit($(this));
 })
 
 page.events = {};
@@ -38,7 +40,6 @@ page.events.Data = {};
 page.events.Load = function() {
     $('#eventList').empty();
     $.get('/api/events', function(resp) {
-        console.log(resp);
         page.events.Data = resp;
         let html = window.Templates.Compile.eventList(resp);
         $('#eventList').html(html);
@@ -65,6 +66,7 @@ page.create.event = function($this) {
     data.event.start = $('#newEventStart').val();
     data.event.end = $('#newEventEnd').val();
     data.event.location = $('#location').val();
+    data.event.series = $('#series').val();
     data.races = {};
 
     $('#races tbody.list').children('tr.race').each(function() {
@@ -124,6 +126,12 @@ page.create.eventReset = function() {
     $('#addEvent tbody.list').empty();
 
     page.create.race.legs = {};
+}
+
+page.events.Edit = function($this) {
+    var $event = $this.closest('.eventCard');
+    var eventData = _.find(page.events.Data[$event.data().year], { EVENT_ID: $event.data().id });
+    console.log(eventData);
 }
 
 $(document).on('click', '.addRace', function() {
@@ -253,7 +261,13 @@ page.create.race.new.legs.saveNew = function($this) {
         if (!(leg.raceId in page.create.race.legs)) {
             page.create.race.legs[leg.raceId] = [];
         }
-        page.create.race.legs[leg.raceId].push(leg);
+
+        var i = _.findIndex(page.create.race.legs[leg.raceId], { id: leg.id });
+        if (i > -1) {
+            page.create.race.legs[leg.raceId][i] = leg;
+        } else {
+            page.create.race.legs[leg.raceId].push(leg);
+        }
 
         var $td = $('#races tbody.list').find('tr.race[data-id="'+leg.raceId+'"]').find('.raceLegCount');
         $td.text(Number($td.text()) + 1);

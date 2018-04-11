@@ -34,6 +34,10 @@ div#addEvent.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addEventLab
                                 div.form-group
                                     label Location
                                     input#location.form-control(type='text' autocomplete='off')
+                            div.col
+                                div.form-group
+                                    label Series
+                                    input#series.form-control(type='text' autocomplete='off')
                         div.row.mt-3
                             div.col 
                                 div.card
@@ -56,4 +60,58 @@ div#addEvent.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addEventLab
             div.modal-footer
                 button.btn.btn-default.btn-simple(data-dismiss='modal') Cancel
                 button.btn.btn-info.btn-simple.addEvent Create
+div#editEvent.modal.fade(tabindex='-1' role='dialog' aria-labelledby='editEventLabel' aria-hidden='true')
+    div.modal-dialog.modal-lg
+        div.modal-content
+            div.modal-header
+                button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+                h4#editEventLabel.modal-title.mt-0 Edit Event
+            div.modal-body
+                div#editForm-body
+                    div#editMainPanel 
+                        div.row
+                            div.col
+                                div.form-group
+                                    label Start Date
+                                    div#dtp_editStartDate.input-group.dtp(data-target-input='nearest')
+                                        input#editEventStart.form-control(type='text' data-target='#dtp_editStartDate' autocomplete='off').datetimepicker-input
+                                        span.input-group-addon(data-target='#dtp_editStartDate' data-toggle='datetimepicker')
+                                            i.fa.fa-calendar
+                            div.col
+                                div.form-group
+                                    label End Date
+                                    div#dtp_editEndDate.input-group.dtp(data-target-input='nearest')
+                                        input#editEventEnd.form-control(type='text' data-target='#dtp_editEndDate' autocomplete='off').datetimepicker-input
+                                        span.input-group-addon(data-target='#dtp_editEndDate' data-toggle='datetimepicker')
+                                            i.fa.fa-calendar
+                            div.col
+                                div.form-group
+                                    label Location
+                                    input#editLocation.form-control(type='text' autocomplete='off')
+                            div.col
+                                div.form-group
+                                    label Series
+                                    input#editSeries.form-control(type='text' autocomplete='off')
+                        div.row.mt-3
+                            div.col 
+                                div.card
+                                    div.card-header.d-flex.justify-content-between
+                                        h5.card-title Races
+                                        span
+                                            button.btn.btn-primary.btn-simple.addRace
+                                                i.fa.fa-plus
+                                                | &nbsp;Add Race
+                                    div.card-block.p-0(style='min-height: 400px;')
+                                        table#editRaces.table.w-100
+                                            thead
+                                                tr
+                                                    th Date
+                                                    th Category
+                                                    th Legs
+                                                    th  
+                                            tbody.list
+                    div#editLegsPanel.hidden
+            div.modal-footer
+                button.btn.btn-default.btn-simple(data-dismiss='modal') Cancel
+                button.btn.btn-info.btn-simple.saveEvent Create
 script(type='text/javascript' src='/assets/js/events.js')

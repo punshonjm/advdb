@@ -11,7 +11,7 @@ eventsRouter.get('/', (req, res) => {
         let query = db.sql.select().fields([
             'event.EVENT_ID', 'race.RACE_ID', 'leg.LEG_ID',
             'event.START_DATE', 'event.END_DATE', 'event.LOCATION',
-            'race.RACE_DATE', 'race.RACE_CATEGORY',
+            'race.RACE_DATE', 'race.RACE_CATEGORY', 'event.SERIES_ID',
             'leg.LEG_TYPE', 'leg.LEG_DISTANCE', 'leg.LEG_UNIT',
             'event.CREATED_BY', 'event.CREATED_DATE',' createUser.USERNAME AS CREATE_NAME',
             'event.LAST_UPDATE_BY', 'event.LAST_UPDATED', 'editUser.USERNAME AS EDIT_NAME',
@@ -79,6 +79,10 @@ eventsRouter.post('/new', (req, res) => {
             LAST_UPDATE_BY: params.user,
         }
 
+        if ('series' in params.event) {
+            row.SERIES_ID = params.event.series;
+        }
+
         let query = db.sql.insert().into('advdb.adv_tbl_event').setFields(eventRow);
         return db.execute(query);
     }).then((result) => {
@@ -140,6 +144,7 @@ internal.rowsToEvent = function(rows) {
 
     let Event = {
         EVENT_ID: rows[0].EVENT_ID,
+        SERIES_ID: rows[0].SERIES_ID,
         EVENT_YEAR: db.sql.date(rows[0].START_DATE, 'YYYY'),
         LOCATION: rows[0].LOCATION,
         START_DATE: db.sql.date(rows[0].START_DATE),

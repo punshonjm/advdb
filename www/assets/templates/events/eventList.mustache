@@ -8,9 +8,12 @@
         <div class='row'>
             {{#each this}}
             <div class='col-md-4'>
-                <div class='card'>
-                    <div class='card-header'>
+                <div class='card eventCard' data-id='{{this.EVENT_ID}}' data-year='{{@../key}}'>
+                    <div class='card-header d-flex justify-content-between'>
                         <h5 class='card-title mb-0'>{{this.EVENT_YEAR}} | {{this.LOCATION}}</h5>
+                        <span>
+                            <button class='btn btn-primary btn-simple editEvent'><i class='fa fa-edit'></i> Edit</button>
+                        </span>
                     </div>
                     <div class='card-block'>
                         <div class='row'>
@@ -18,6 +21,9 @@
                                 <p>
                                     <strong>Start Date:</strong> {{this.START_DATE}} <br />
                                     <strong>End Date:</strong> {{this.END_DATE}} <br />
+                                    {{#if this.SERIES_ID}}
+                                    <strong>Series:</strong> {{this.SERIES_ID}} <br />
+                                    {{/if}}
                                 </p>
                             </div>
                         </div>
@@ -58,6 +64,9 @@
                         <div class='col'>
                             <p>
                                 <strong>Location:</strong> {{this.LOCATION}} <br />
+                                {{#if this.SERIES_ID}}
+                                <strong>Series:</strong> {{this.SERIES_ID}} <br />
+                                {{/if}}
                             </p>
                             <p>
                                 <strong>Start Date:</strong> {{this.START_DATE}} <br />
