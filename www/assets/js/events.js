@@ -131,8 +131,18 @@ page.create.eventReset = function() {
 page.events.Edit = function($this) {
     var $event = $this.closest('.eventCard');
     var eventData = _.find(page.events.Data[$event.data().year], { EVENT_ID: $event.data().id });
+    page.events.Edit.data = eventData;
+
     console.log(eventData);
+
+    $('#dtp_editStartDate').datetimepicker('date', moment(eventData.START_DATE, 'DD/MM/YYYY');
+    $('#dtp_editEndDate').datetimepicker('date', moment(eventData.END_DATE, 'DD/MM/YYYY'));
+    $('#editLocation').val(eventData.LOCATION);
+    $('#editSeries').val(eventData.SERIES_ID);
+
+
 }
+page.events.Edit.data = null;
 
 $(document).on('click', '.addRace', function() {
     page.create.race.new();
